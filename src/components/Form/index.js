@@ -1,9 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
-import {Container} from './styles';
+import { Container } from './styles';
 
-const Form = ({children}) => {
+const Form = ({ children }) => {
   return <Container>{children}</Container>;
 };
 

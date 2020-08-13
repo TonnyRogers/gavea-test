@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background: #01caa9;
 `;
@@ -40,4 +40,24 @@ export const SignUpButtonText = styled.Text`
   color: #fff;
   font-weight: bold;
   font-size: 14px;
+`;
+
+export const InputBox = styled.View`
+  margin: 5px 10px;
+`;
+
+export const SubmitButton = styled.TouchableOpacity`
+  align-self: stretch;
+  background: #01caa9;
+  border-radius: 8px;
+  height: 53px;
+  margin: 50px 12px 0 12px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SubmitButtonText = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
 `;

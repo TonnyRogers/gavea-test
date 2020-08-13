@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -11,8 +10,12 @@ import {
   PageTitle,
   SignUpButton,
   SignUpButtonText,
+  InputBox,
+  SubmitButton,
+  SubmitButtonText,
 } from './styles';
 import Form from '../../components/Form';
+import Input from '../../components/Input';
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -36,7 +39,15 @@ const SignIn = () => {
         <PageTitle>Logar</PageTitle>
       </Header>
       <Form>
-        <Text>Alo</Text>
+        <InputBox>
+          <Input label="Nome" placeholder="Digite seu nome" />
+        </InputBox>
+        <InputBox>
+          <Input label="Senha" placeholder="Digite sua senha" />
+        </InputBox>
+        <SubmitButton>
+          <SubmitButtonText>Entrar</SubmitButtonText>
+        </SubmitButton>
       </Form>
       <SignUpButton onPress={handleNavigateSignUp}>
         <SignUpButtonText>Não sou cadastrado(a)</SignUpButtonText>

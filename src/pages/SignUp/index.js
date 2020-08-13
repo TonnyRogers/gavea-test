@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -11,8 +10,12 @@ import {
   PageTitle,
   SignUpButton,
   SignUpButtonText,
+  InputBox,
+  SubmitButton,
+  SubmitButtonText,
 } from './styles';
 import Form from '../../components/Form';
+import Input from '../../components/Input';
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -36,7 +39,22 @@ const SignUp = () => {
         <PageTitle>Cadastre-se</PageTitle>
       </Header>
       <Form>
-        <Text>Alo</Text>
+        <InputBox>
+          <Input label="Nome" placeholder="Digite seu nome" />
+        </InputBox>
+        <InputBox>
+          <Input
+            label="Email"
+            placeholder="Digite seu e-mail"
+            keyboardType="email-address"
+          />
+        </InputBox>
+        <InputBox>
+          <Input label="Senha" placeholder="Digite sua senha" />
+        </InputBox>
+        <SubmitButton>
+          <SubmitButtonText>Salvar</SubmitButtonText>
+        </SubmitButton>
       </Form>
       <SignUpButton onPress={handleNavigateSignIn}>
         <SignUpButtonText>Ja sou cadastrado(a)</SignUpButtonText>
