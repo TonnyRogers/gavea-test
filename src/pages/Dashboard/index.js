@@ -15,13 +15,16 @@ import {
   LogoutButton,
 } from './styles';
 
-const Dashboard = () => {
+const Dashboard = ({ route }) => {
+  const { data: user } = route.params;
+  console.log(user);
+
   return (
     <Container>
       <Header>
         <Welcoming>
           <Message>Bem-vindo</Message>
-          <Name>Antoniel Amaral</Name>
+          <Name>{user.name}</Name>
         </Welcoming>
         <LogoutButton>
           <Icon name="exit-to-app" size={24} color="#FFF" />
