@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   Container,
@@ -19,6 +20,16 @@ import {
 import moneyImage from '../../assets/images/money-banner-img.png';
 
 const Main = () => {
+  const navigation = useNavigation();
+
+  function handleNavigateSignIn() {
+    navigation.navigate('SignIn');
+  }
+
+  function handleNavigateSignUp() {
+    navigation.navigate('SignUp');
+  }
+
   return (
     <Container>
       <WelcomeCard>
@@ -34,11 +45,11 @@ const Main = () => {
         </Content>
       </WelcomeCard>
 
-      <LoginButton>
+      <LoginButton onPress={handleNavigateSignIn}>
         <LoginButtonText>Fazer Login</LoginButtonText>
       </LoginButton>
 
-      <SignUpButton>
+      <SignUpButton onPress={handleNavigateSignUp}>
         <SignUpButtonText>Não sou cadastrado(a)</SignUpButtonText>
       </SignUpButton>
     </Container>
