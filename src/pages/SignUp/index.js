@@ -32,7 +32,10 @@ const SignUp = () => {
     <Container>
       <Header>
         <Navigation>
-          <BackButton onPress={handleNavigateToHome}>
+          <BackButton
+            testID="register-back-button"
+            onPress={handleNavigateToHome}
+          >
             <Icon name="arrow-back" size={24} color="#FFF" />
           </BackButton>
         </Navigation>

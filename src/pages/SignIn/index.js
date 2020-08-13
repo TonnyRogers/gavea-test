@@ -32,7 +32,7 @@ const SignIn = () => {
     <Container>
       <Header>
         <Navigation>
-          <BackButton onPress={handleNavigateToHome}>
+          <BackButton testID="login-back-button" onPress={handleNavigateToHome}>
             <Icon name="arrow-back" size={24} color="#FFF" />
           </BackButton>
         </Navigation>
