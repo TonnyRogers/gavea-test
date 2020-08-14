@@ -33,6 +33,18 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.signed = false;
         break;
       }
+      case '@auth/REGISTER_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@auth/REGISTER_SUCCESS': {
+        draft.loading = false;
+        break;
+      }
+      case '@auth/REGISTER_FAILURE': {
+        draft.loading = false;
+        break;
+      }
       default:
     }
   });

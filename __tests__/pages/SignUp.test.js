@@ -1,18 +1,26 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react-native';
-import { Provider } from 'react-redux';
+import * as redux from 'react-redux';
 
 import configureStore from 'redux-mock-store';
 
 import SignUp from '../../src/pages/SignUp';
 import MockedNavigator from '../../jest/MockedNavigator';
 
+const { Provider } = redux;
+
 jest.mock(
   './path/to/the/image.png',
   () =>
     '/node_modules/@react-navigation/stack/lib/commonjs/views/assets/back-icon.png'
 );
+
+const spyUseSelector = jest.spyOn(redux, 'useSelector');
+
+spyUseSelector.mockReturnValue({
+  loading: false,
+});
 
 describe('Register Page', () => {
   afterEach(cleanup);

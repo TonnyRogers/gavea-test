@@ -1,18 +1,27 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react-native';
-import { Provider } from 'react-redux';
+import * as redux from 'react-redux';
 
 import configureStore from 'redux-mock-store';
 
 import Main from '../../src/pages/Main';
 import MockedNavigator from '../../jest/MockedNavigator';
 
+const { Provider } = redux;
+
 jest.mock(
   './path/to/the/image.png',
   () =>
     '/node_modules/@react-navigation/stack/lib/commonjs/views/assets/back-icon.png'
 );
+
+const spyUseSelector = jest.spyOn(redux, 'useSelector');
+
+spyUseSelector.mockReturnValue({
+  loading: false,
+  signed: false,
+});
 
 describe('Main Page', () => {
   afterEach(cleanup);
@@ -41,8 +50,16 @@ describe('Main Page', () => {
   });
 
   it('when press register button should go to register page', async () => {
+    const INITIAL_STATE = {
+      user: null,
+      signed: false,
+    };
+    store = mockStore(INITIAL_STATE);
+
     const { findByText, findAllByText } = render(
-      <MockedNavigator component={Main} />
+      <Provider store={store}>
+        <MockedNavigator component={Main} />
+      </Provider>
     );
 
     const loginButton = await findByText('Não sou cadastrado(a)');

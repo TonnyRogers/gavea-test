@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ActivityIndicator } from 'react-native';
 
 import { loginRequest } from '../../store/modules/auth/actions';
 
@@ -25,6 +26,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { loading } = useSelector((state) => state.auth);
 
   function handleNavigateToHome() {
     navigation.navigate('Main');
@@ -56,6 +58,7 @@ const SignIn = () => {
             value={email}
             onChange={setEmail}
             keyboardType="email-address"
+            testID="login-email-input"
           />
         </InputBox>
         <InputBox>
@@ -65,10 +68,16 @@ const SignIn = () => {
             value={password}
             onChange={setPassword}
             secureTextEntry
+            keyboardType="numeric"
+            testID="login-password-input"
           />
         </InputBox>
         <SubmitButton onPress={handleSignIn}>
-          <SubmitButtonText>Entrar</SubmitButtonText>
+          {loading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <SubmitButtonText>Entrar</SubmitButtonText>
+          )}
         </SubmitButton>
       </Form>
       <SignUpButton onPress={handleNavigateSignUp}>

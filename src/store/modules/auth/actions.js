@@ -23,3 +23,21 @@ export function logout() {
     type: '@auth/LOGOUT',
   };
 }
+
+export function registerRequest(name, email, password) {
+  return {
+    type: '@auth/REGISTER_REQUEST',
+    payload: { name, email, password },
+  };
+}
+export function registerSuccess(id) {
+  return {
+    type: '@auth/REGISTER_SUCCESS',
+    payload: { id },
+  };
+}
+export function registerFailure() {
+  return {
+    type: '@auth/REGISTER_FAILURE',
+  };
+}

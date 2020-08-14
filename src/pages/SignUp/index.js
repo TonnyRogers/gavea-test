@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, ActivityIndicator } from 'react-native';
 
 import {
   Container,
@@ -16,9 +18,15 @@ import {
 } from './styles';
 import Form from '../../components/Form';
 import Input from '../../components/Input';
+import { registerRequest } from '../../store/modules/auth/actions';
 
 const SignUp = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { loading } = useSelector((state) => state.auth);
 
   function handleNavigateToHome() {
     navigation.navigate('Main');
@@ -26,6 +34,17 @@ const SignUp = () => {
 
   function handleNavigateSignIn() {
     navigation.navigate('SignIn');
+  }
+
+  function handleSubmit() {
+    if (!name || !email || !password) {
+      Alert.alert('Preencha todos os campos antes de continuar.');
+      return;
+    }
+    dispatch(registerRequest(name, email, password));
+    setName('');
+    setEmail('');
+    setPassword('');
   }
 
   return (
@@ -43,20 +62,38 @@ const SignUp = () => {
       </Header>
       <Form>
         <InputBox>
-          <Input label="Nome" placeholder="Digite seu nome" />
+          <Input
+            label="Nome"
+            placeholder="Digite seu nome"
+            value={name}
+            onChange={setName}
+          />
         </InputBox>
         <InputBox>
           <Input
             label="Email"
             placeholder="Digite seu e-mail"
             keyboardType="email-address"
+            value={email}
+            onChange={setEmail}
           />
         </InputBox>
         <InputBox>
-          <Input label="Senha" placeholder="Digite sua senha" />
+          <Input
+            label="Senha"
+            placeholder="Digite sua senha"
+            keyboardType="numeric"
+            secureTextEntry
+            value={password}
+            onChange={setPassword}
+          />
         </InputBox>
-        <SubmitButton>
-          <SubmitButtonText>Salvar</SubmitButtonText>
+        <SubmitButton onPress={handleSubmit}>
+          {loading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <SubmitButtonText>Salvar</SubmitButtonText>
+          )}
         </SubmitButton>
       </Form>
       <SignUpButton onPress={handleNavigateSignIn}>
