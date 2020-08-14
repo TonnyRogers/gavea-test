@@ -1,5 +1,9 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+
+import { logout } from '../../store/modules/auth/actions';
 
 import {
   Container,
@@ -16,17 +20,21 @@ import {
 } from './styles';
 
 const Dashboard = ({ route }) => {
-  const { data: user } = route.params;
-  console.log(user);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logout());
+  }
 
   return (
     <Container>
       <Header>
         <Welcoming>
           <Message>Bem-vindo</Message>
-          <Name>{user.name}</Name>
+          <Name>{user ? user.name : ''}</Name>
         </Welcoming>
-        <LogoutButton>
+        <LogoutButton onPress={handleLogout}>
           <Icon name="exit-to-app" size={24} color="#FFF" />
         </LogoutButton>
       </Header>

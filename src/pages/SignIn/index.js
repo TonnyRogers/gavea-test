@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch } from 'react-redux';
 
-import api from '../../services/api';
+import { loginRequest } from '../../store/modules/auth/actions';
 
 import {
   Container,
@@ -22,6 +22,7 @@ import Input from '../../components/Input';
 
 const SignIn = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,18 +35,7 @@ const SignIn = () => {
   }
 
   async function handleSignIn() {
-    try {
-      const response = await api.post('/sessions', { email, password });
-      const { token } = response.data;
-
-      if (token) {
-        navigation.navigate('Dashboard', { data: response.data.user });
-      } else {
-        Alert.alert('Email, ou senha incorreto.');
-      }
-    } catch (error) {
-      Alert.alert('Erro ao efetuar Login');
-    }
+    dispatch(loginRequest(email, password));
   }
 
   return (

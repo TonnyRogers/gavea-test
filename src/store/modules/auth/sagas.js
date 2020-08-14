@@ -9,7 +9,7 @@ export function* logUser({ payload }) {
   try {
     const { email, password } = payload;
 
-    const response = yield call(api.post, 'sessions', { email, password });
+    const response = yield call(api.post, '/sessions', { email, password });
 
     const { token, user } = response.data;
 
@@ -19,7 +19,7 @@ export function* logUser({ payload }) {
       return;
     }
 
-    yield call([AsyncStorage, 'setItem'], '@Omni:token', token);
+    yield call([AsyncStorage, 'setItem'], '@auth:token', token);
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(loginSuccess(token, user));
@@ -29,4 +29,12 @@ export function* logUser({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/LOGIN_REQUEST', logUser)]);
+export function* logout() {
+  yield call([AsyncStorage, 'removeItem'], '@auth:token');
+  api.defaults.headers.Authorization = `Bearer `;
+}
+
+export default all([
+  takeLatest('@auth/LOGOUT', logout),
+  takeLatest('@auth/LOGIN_REQUEST', logUser),
+]);
